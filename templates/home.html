@@ -1,0 +1,63 @@
+<!DOCTYPE html>{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="This is only for tutorial purposes only!!!">
+    <title>Django File Uploads</title>
+    <link href="{% static 'index.css' %}" rel="stylesheet">
+</head>
+<body>
+    <header class="block items-center bg-gray-800 p-4 md:flex">
+      <a href="/" class="text-xl font-semibold text-emerald-500">Django File Uploads</a>
+
+      <ul class="ml-auto block items-center md:flex">
+        <li class="my-2 md:mx-2">
+          <a href="/" class="font-semibold text-emerald-500 hover:text-emerald-600">Home</a>
+        </li>
+        <li class="my-2 md:mx-2">
+          <a href="#" class="font-semibold text-emerald-500 hover:text-emerald-600">About</a>
+        </li>
+        <li class="my-2 md:mx-2">
+          <a href="#" class="font-semibold text-emerald-500 hover:text-emerald-600">Contact</a>
+        </li>
+      </ul>
+    </header>
+
+    <div class="container mx-auto my-3 w-2/3 p-4">
+      <h1 class="text-4xl font-semibold text-emerald-500">Upload Multiple Images - Django</h1>
+      <form action="/" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+        <div class="mb-3">
+          <label for="images" class="mb-2 inline-block text-neutral-700 dark:text-neutral-200">Upload Images</label>
+          <input class="focus:border-primary focus:shadow-te-primary dark:focus:border-primary relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:text-neutral-700 focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100" type="file" id="images" name="images" multiple />
+        </div>
+        <button type="submit" class="rounded bg-emerald-500 px-2 py-2 font-semibold text-white hover:bg-emerald-600">Upload</button>
+      </form>
+      <hr>
+      <section class="text-gray-600 body-font">
+          <div class="container px-5 py-24 mx-auto">
+            <div class="flex flex-wrap -m-4">
+              {% for i in images %}
+              <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+                  <img alt="ecommerce" class="image object-cover object-center w-full h-full block" src="{{ i.image.url }}">
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+    </div>
+
+    <script>
+        let images = document.getElementsByClassName('image');
+
+        Array.from(images).forEach((element) => {
+            element.style.cursor = "pointer";
+            element.addEventListener('click', (e) => {
+                let src = e.target.src;
+                console.log(src);
+            })
+        })
+    </script>
+</body>
+</html>
